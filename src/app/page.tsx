@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   Menu,
   X,
@@ -17,6 +17,7 @@ import {
   Award,
   ChevronDown,
   ExternalLink,
+  ArrowUpRight,
 } from 'lucide-react';
 
 // 动画配置
@@ -51,6 +52,70 @@ function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; dela
   );
 }
 
+// 交互卡片组件 - 带鼠标悬停效果
+function InteractiveCard({
+  children,
+  className = '',
+  hoverScale = 1.02,
+  hoverY = -4,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  hoverScale?: number;
+  hoverY?: number;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      animate={{
+        scale: isHovered ? hoverScale : 1,
+        y: isHovered ? hoverY : 0,
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className={`transition-colors duration-300 ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// 图标按钮悬停效果
+function IconButton({
+  icon: Icon,
+  href,
+  label,
+}: {
+  icon: React.ElementType;
+  href: string;
+  label: string;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.a
+      href={href}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300"
+      animate={{
+        scale: isHovered ? 1.05 : 1,
+      }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <motion.span
+        animate={{ rotate: isHovered ? 45 : 0 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      >
+        <Icon size={18} />
+      </motion.span>
+      <span>{label}</span>
+    </motion.a>
+  );
+}
+
 // 导航栏组件
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,75 +146,107 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
-          <a href="#" className="text-xl sm:text-2xl font-bold tracking-tight">
+          <motion.a
+            href="#"
+            className="text-xl sm:text-2xl font-bold tracking-tight"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Rookive
-          </a>
+          </motion.a>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <NavLink key={link.name} href={link.href}>
                 {link.name}
-              </a>
+              </NavLink>
             ))}
-            <a
+            <motion.a
               href="#contact"
-              className="px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium"
+              whileHover={{ scale: 1.05, opacity: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
               联系我
-            </a>
+            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-border"
-          >
-            <div className="px-4 py-6 space-y-4">
-              {navLinks.map((link) => (
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden bg-white border-b border-border"
+            >
+              <div className="px-4 py-6 space-y-4">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
                 <a
-                  key={link.name}
-                  href={link.href}
+                  href="#contact"
                   onClick={() => setIsOpen(false)}
-                  className="block text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="block w-full text-center px-5 py-3 bg-foreground text-background rounded-full font-medium"
                 >
-                  {link.name}
+                  联系我
                 </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setIsOpen(false)}
-                className="block w-full text-center px-5 py-3 bg-foreground text-background rounded-full font-medium"
-              >
-                联系我
-              </a>
-            </div>
-          </motion.div>
-        )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
 }
 
+// 导航链接悬停效果
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <a
+      href={href}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+    >
+      {children}
+      <motion.span
+        className="absolute -bottom-1 left-0 h-0.5 bg-foreground"
+        initial={{ width: 0 }}
+        animate={{ width: isHovered ? '100%' : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+    </a>
+  );
+}
+
 // Hero 区域
 function HeroSection() {
+  const [isHoveredWork, setIsHoveredWork] = useState(false);
+  const [isHoveredAbout, setIsHoveredAbout] = useState(false);
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* 背景装饰 */}
@@ -172,45 +269,89 @@ function HeroSection() {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full text-sm font-medium"
           >
-            <Sparkles size={16} />
+            <motion.span
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            >
+              <Sparkles size={16} />
+            </motion.span>
             <span>角色原画 · 游戏美术</span>
           </motion.div>
 
           {/* 主标题 */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
-            <span className="block">周琪雯</span>
-            <span className="block text-muted-foreground text-3xl sm:text-4xl md:text-5xl mt-4">
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              周琪雯
+            </motion.span>
+            <motion.span
+              className="block text-muted-foreground text-3xl sm:text-4xl md:text-5xl mt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
               角色原画作品集
-            </span>
+            </motion.span>
           </h1>
 
           {/* 描述 */}
-          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground leading-relaxed"
+          >
             10年腾讯游戏美术经验，擅长美少女角色设计与QQ人画风。
             <br className="hidden sm:block" />
             成都人 · 美术生 · 小众音乐爱好者
-          </p>
+          </motion.p>
 
           {/* 按钮组 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
           >
-            <a
+            {/* 查看作品按钮 */}
+            <motion.a
               href="#works"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-medium hover:opacity-90 transition-opacity"
+              onMouseEnter={() => setIsHoveredWork(true)}
+              onMouseLeave={() => setIsHoveredWork(false)}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              查看作品
-              <ExternalLink size={18} />
-            </a>
-            <a
+              <span>查看作品</span>
+              <motion.span
+                animate={{ x: isHoveredWork ? 4 : 0, rotate: isHoveredWork ? 45 : 0 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
+                <ArrowUpRight size={18} />
+              </motion.span>
+            </motion.a>
+
+            {/* 了解更多按钮 */}
+            <motion.a
               href="#about"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-full font-medium hover:bg-muted transition-colors"
+              onMouseEnter={() => setIsHoveredAbout(true)}
+              onMouseLeave={() => setIsHoveredAbout(false)}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-foreground rounded-full font-medium"
+              whileHover={{ scale: 1.05, backgroundColor: '#E5E7EB' }}
+              whileTap={{ scale: 0.98 }}
             >
-              了解更多
-            </a>
+              <span>了解更多</span>
+              <motion.span
+                animate={{ x: isHoveredAbout ? 4 : 0 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
+                <ChevronDown size={18} />
+              </motion.span>
+            </motion.a>
           </motion.div>
         </motion.div>
 
@@ -221,10 +362,15 @@ function HeroSection() {
           transition={{ delay: 1 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
         >
-          <a href="#about" className="flex flex-col items-center gap-2 text-muted-foreground">
+          <motion.a
+            href="#about"
+            className="flex flex-col items-center gap-2 text-muted-foreground"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
             <span className="text-xs tracking-wider uppercase">Scroll</span>
-            <ChevronDown size={20} className="animate-bounce" />
-          </a>
+            <ChevronDown size={20} />
+          </motion.a>
         </motion.div>
       </div>
     </section>
@@ -265,6 +411,41 @@ const features = [
   },
 ];
 
+// 特性卡片组件
+function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = feature.icon;
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group p-8 bg-card rounded-2xl border border-border transition-all duration-300"
+      animate={{
+        y: isHovered ? -8 : 0,
+        boxShadow: isHovered
+          ? '0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04)'
+          : '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)',
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+    >
+      <motion.div
+        className="w-12 h-12 flex items-center justify-center bg-secondary rounded-xl mb-6"
+        animate={{
+          backgroundColor: isHovered ? '#111827' : '#F3F4F6',
+          color: isHovered ? '#FFFFFF' : '#111827',
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <Icon size={24} />
+      </motion.div>
+      <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+      <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+    </motion.div>
+  );
+}
+
 // 特性展示区
 function FeaturesSection() {
   return (
@@ -287,17 +468,7 @@ function FeaturesSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              variants={fadeInUp}
-              className="group p-8 bg-card rounded-2xl border border-border card-shadow hover:border-muted-foreground/20"
-            >
-              <div className="w-12 h-12 flex items-center justify-center bg-secondary rounded-xl mb-6 group-hover:bg-foreground group-hover:text-background transition-colors">
-                <feature.icon size={24} />
-              </div>
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </motion.div>
+            <FeatureCard key={feature.title} feature={feature} index={index} />
           ))}
         </motion.div>
       </div>
@@ -345,9 +516,69 @@ const works = [
   },
 ];
 
+// 作品卡片组件
+function WorkCard({ work, index }: { work: typeof works[0]; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group bg-card rounded-2xl overflow-hidden border border-border"
+      style={{
+        boxShadow: isHovered
+          ? '0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.06)'
+          : '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)',
+      }}
+    >
+      <div className="aspect-[4/3] relative overflow-hidden">
+        <motion.img
+          src={work.image}
+          alt={work.title}
+          className="w-full h-full object-cover"
+          animate={{ scale: isHovered ? 1.08 : 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.div
+          className="absolute bottom-4 right-4"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center">
+            <ArrowUpRight size={20} className="text-foreground" />
+          </div>
+        </motion.div>
+      </div>
+      <div className="p-6">
+        <motion.span
+          className="text-xs font-medium text-muted-foreground inline-block"
+          animate={{ color: isHovered ? '#111827' : '#6B7280' }}
+        >
+          {work.category}
+        </motion.span>
+        <h3 className="text-lg font-bold mt-1 mb-2">{work.title}</h3>
+        <p className="text-sm text-muted-foreground">{work.description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 // 作品展示区
 function WorksSection() {
   const [filter, setFilter] = useState('全部');
+  const [activeFilter, setActiveFilter] = useState('全部');
   const categories = ['全部', '宝可梦大集结', '个人作品', '同人作品'];
 
   const filteredWorks = filter === '全部' ? works : works.filter((w) => w.category === filter);
@@ -365,53 +596,33 @@ function WorksSection() {
             {/* 筛选按钮 */}
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {categories.map((cat) => (
-                <button
+                <motion.button
                   key={cat}
-                  onClick={() => setFilter(cat)}
+                  onClick={() => {
+                    setFilter(cat);
+                    setActiveFilter(cat);
+                  }}
                   className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                    filter === cat
+                    activeFilter === cat
                       ? 'bg-foreground text-background'
                       : 'bg-card text-muted-foreground hover:text-foreground'
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {cat}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
         </ScrollReveal>
 
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-        >
-          {filteredWorks.map((work, index) => (
-            <motion.div
-              key={work.title}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="group bg-card rounded-2xl overflow-hidden border border-border card-shadow"
-            >
-              <div className="aspect-[4/3] relative overflow-hidden">
-                <Image
-                  src={work.image}
-                  alt={work.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="p-6">
-                <span className="text-xs font-medium text-muted-foreground">{work.category}</span>
-                <h3 className="text-lg font-bold mt-1 mb-2">{work.title}</h3>
-                <p className="text-sm text-muted-foreground">{work.description}</p>
-              </div>
-            </motion.div>
-          ))}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredWorks.map((work, index) => (
+              <WorkCard key={work.title} work={work} index={index} />
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
@@ -440,6 +651,49 @@ const experiences = [
   },
 ];
 
+// 经历卡片
+function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="p-6 sm:p-8 bg-card rounded-2xl border border-border transition-all duration-300"
+      animate={{
+        y: isHovered ? -4 : 0,
+        boxShadow: isHovered
+          ? '0 16px 32px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.04)'
+          : '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)',
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-bold">{exp.company}</h3>
+          <p className="text-muted-foreground mt-1">{exp.role}</p>
+          {exp.projects.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              {exp.projects.map((project) => (
+                <motion.span
+                  key={project}
+                  className="px-3 py-1 bg-secondary rounded-full text-xs font-medium"
+                  animate={{
+                    backgroundColor: isHovered ? '#E5E7EB' : '#F3F4F6',
+                  }}
+                >
+                  {project}
+                </motion.span>
+              ))}
+            </div>
+          )}
+        </div>
+        <span className="text-sm text-muted-foreground whitespace-nowrap">{exp.period}</span>
+      </div>
+    </motion.div>
+  );
+}
+
 // 经历区域
 function ExperienceSection() {
   return (
@@ -457,27 +711,7 @@ function ExperienceSection() {
         <div className="max-w-3xl mx-auto space-y-6">
           {experiences.map((exp, index) => (
             <ScrollReveal key={exp.company} delay={index * 0.1}>
-              <div className="p-6 sm:p-8 bg-card rounded-2xl border border-border card-shadow">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                  <div>
-                    <h3 className="text-xl font-bold">{exp.company}</h3>
-                    <p className="text-muted-foreground mt-1">{exp.role}</p>
-                    {exp.projects.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {exp.projects.map((project) => (
-                          <span
-                            key={project}
-                            className="px-3 py-1 bg-secondary rounded-full text-xs font-medium"
-                          >
-                            {project}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <span className="text-sm text-muted-foreground whitespace-nowrap">{exp.period}</span>
-                </div>
-              </div>
+              <ExperienceCard exp={exp} index={index} />
             </ScrollReveal>
           ))}
         </div>
@@ -492,6 +726,43 @@ const contacts = [
   { icon: Mail, label: '邮箱', value: '617483149@qq.com', href: 'mailto:617483149@qq.com' },
   { icon: MapPin, label: '位置', value: '成都', href: '#' },
 ];
+
+// 联系卡片
+function ContactCard({ contact }: { contact: typeof contacts[0] }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = contact.icon;
+
+  return (
+    <motion.a
+      href={contact.href}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group p-8 bg-card rounded-2xl border border-border text-center block"
+      animate={{
+        y: isHovered ? -8 : 0,
+        boxShadow: isHovered
+          ? '0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04)'
+          : '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)',
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <motion.div
+        className="w-14 h-14 flex items-center justify-center bg-secondary rounded-xl mx-auto mb-4"
+        animate={{
+          backgroundColor: isHovered ? '#111827' : '#F3F4F6',
+          color: isHovered ? '#FFFFFF' : '#111827',
+          scale: isHovered ? 1.1 : 1,
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <Icon size={24} />
+      </motion.div>
+      <p className="text-sm text-muted-foreground mb-1">{contact.label}</p>
+      <p className="font-medium">{contact.value}</p>
+    </motion.a>
+  );
+}
 
 // 联系区域
 function ContactSection() {
@@ -515,18 +786,7 @@ function ContactSection() {
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto"
         >
           {contacts.map((contact) => (
-            <motion.a
-              key={contact.label}
-              href={contact.href}
-              variants={fadeInUp}
-              className="group p-8 bg-card rounded-2xl border border-border card-shadow text-center hover:border-muted-foreground/20 transition-all"
-            >
-              <div className="w-14 h-14 flex items-center justify-center bg-secondary rounded-xl mx-auto mb-4 group-hover:bg-foreground group-hover:text-background transition-colors">
-                <contact.icon size={24} />
-              </div>
-              <p className="text-sm text-muted-foreground mb-1">{contact.label}</p>
-              <p className="font-medium">{contact.value}</p>
-            </motion.a>
+            <ContactCard key={contact.label} contact={contact} />
           ))}
         </motion.div>
       </div>
@@ -541,19 +801,26 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
           <div className="text-center sm:text-left">
-            <p className="text-xl font-bold">Rookive</p>
+            <motion.p
+              className="text-xl font-bold"
+              whileHover={{ scale: 1.05 }}
+              style={{ cursor: 'default' }}
+            >
+              Rookive
+            </motion.p>
             <p className="text-sm text-muted-foreground mt-1">角色原画 · 游戏美术</p>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#about" className="hover:text-foreground transition-colors">
-              关于
-            </a>
-            <a href="#works" className="hover:text-foreground transition-colors">
-              作品
-            </a>
-            <a href="#contact" className="hover:text-foreground transition-colors">
-              联系
-            </a>
+            {['关于', '作品', '联系'].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item}`}
+                className="hover:text-foreground transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                {item}
+              </motion.a>
+            ))}
           </div>
           <p className="text-sm text-muted-foreground">© 2025 周琪雯. All rights reserved.</p>
         </div>
