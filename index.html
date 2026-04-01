@@ -373,18 +373,21 @@
     /* 缩小版环形进度条 */
     .skill-ring-mini {
       position: relative;
-      width: 52px;
-      height: 52px;
+      width: 68px;
+      height: 68px;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
     
     .skill-ring-mini:hover {
-      transform: scale(1.15);
+      transform: scale(1.1);
     }
     
     .skill-ring-mini svg {
       transform: rotate(-90deg);
+      position: absolute;
+      top: 8px;
+      left: 8px;
     }
     
     .skill-ring-bg-mini {
@@ -407,6 +410,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 8px;
     }
     
     .skill-ring-value-mini .skill-number {
@@ -534,7 +538,7 @@
         <p class="text-xs font-medium text-white/60 tracking-wider uppercase mb-3 drop-shadow">Professional Skills</p>
         <div class="flex items-end justify-center gap-3">
           <!-- 角色原画 95 -->
-          <div class="skill-ring-mini skill-ring-mini-1 bg-black/50 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
+          <div class="skill-ring-mini skill-ring-mini-1 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
             <svg width="52" height="52" viewBox="0 0 100 100">
               <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
               <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
@@ -551,7 +555,7 @@
           </div>
           
           <!-- 三视图 95 -->
-          <div class="skill-ring-mini skill-ring-mini-2 bg-black/50 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
+          <div class="skill-ring-mini skill-ring-mini-2 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
             <svg width="52" height="52" viewBox="0 0 100 100">
               <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
               <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
@@ -568,7 +572,7 @@
           </div>
           
           <!-- 团队协作 90 -->
-          <div class="skill-ring-mini skill-ring-mini-3 bg-black/50 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
+          <div class="skill-ring-mini skill-ring-mini-3 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
             <svg width="52" height="52" viewBox="0 0 100 100">
               <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
               <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
@@ -585,7 +589,7 @@
           </div>
           
           <!-- 交付效率 90 -->
-          <div class="skill-ring-mini skill-ring-mini-4 bg-black/50 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
+          <div class="skill-ring-mini skill-ring-mini-4 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
             <svg width="52" height="52" viewBox="0 0 100 100">
               <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
               <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
@@ -602,7 +606,7 @@
           </div>
           
           <!-- 项目经验 90 -->
-          <div class="skill-ring-mini skill-ring-mini-5 bg-black/50 backdrop-blur-sm rounded-2xl p-2 border border-white/10">
+          <div class="skill-ring-mini skill-ring-mini-5 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
             <svg width="52" height="52" viewBox="0 0 100 100">
               <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
               <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
