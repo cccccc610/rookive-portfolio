@@ -466,6 +466,90 @@
     .skill-ring-mini-4 .skill-ring-progress-mini { stroke: #ef4444; }
     .skill-ring-mini-5 .skill-ring-progress-mini { stroke: #8b5cf6; }
     
+    /* 技能圆形徽章样式 */
+    .skill-ring-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .skill-ring-item:hover {
+      transform: scale(1.1);
+    }
+    
+    .skill-ring-item .skill-progress {
+      transform-origin: center;
+      animation: skillProgress 1.5s ease-out forwards;
+    }
+    
+    @keyframes skillProgress {
+      from {
+        stroke-dashoffset: 264;
+      }
+    }
+    
+    .skill-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .skill-label {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 6px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    
+    .skill-ring-item::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.9);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+    
+    .skill-ring-item::after {
+      content: '';
+      position: absolute;
+      bottom: calc(100% - 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(0,0,0,0.95);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+    
+    .skill-ring-item:hover::before,
+    .skill-ring-item:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1);
+    }
+    
     /* 技能标签样式 */
     .skill-tag {
       position: relative;
@@ -565,7 +649,7 @@
             <!-- 主标题 -->
             <div>
               <h1 class="font-serif-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-lg leading-none">
-                qiwen Zhou
+                qiwenzhou
               </h1>
               <p class="text-white/50 text-sm tracking-widest mt-3 font-light">The monster's left hand</p>
             </div>
@@ -583,51 +667,80 @@
               <span class="px-4 py-1.5 bg-transparent backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/30">互联网大厂</span>
             </div>
             
-            <!-- 能力值区域 -->
-            <div class="flex items-center gap-6 pt-4">
-              <!-- 圆形评分徽章 -->
-              <div class="relative w-24 h-24 flex-shrink-0">
-                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+            <!-- 能力值区域 - 5个圆形评分徽章 -->
+            <div class="flex flex-wrap gap-4 pt-4">
+              <!-- 角色原画 9.5 -->
+              <div class="skill-ring-item" data-tooltip="擅长二次元风格角色设计">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
-                  <circle cx="50" cy="50" r="42" fill="none" stroke="#fbbf24" stroke-width="6" 
-                    stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#10b981" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="13.2" stroke-linecap="round" class="skill-progress"/>
                 </svg>
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <span class="text-3xl font-bold text-white">10</span>
+                <div class="skill-center">
+                  <span class="text-lg font-bold text-white">10</span>
                 </div>
+                <div class="skill-label">角色原画</div>
               </div>
               
-              <!-- 技能标签 -->
-              <div class="flex flex-wrap gap-2">
-                <div class="skill-tag" data-skill="角色原画9.5" style="border-color: #10b981;">
-                  <span class="text-white text-xs">角色原画 9.5</span>
-                  <div class="skill-tag-tooltip">擅长二次元风格角色设计，多年游戏美术制作经验</div>
+              <!-- 三视图绘制 9.5 -->
+              <div class="skill-ring-item" data-tooltip="制定三视图规范，精准还原">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#3b82f6" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="13.2" stroke-linecap="round" class="skill-progress"/>
+                </svg>
+                <div class="skill-center">
+                  <span class="text-lg font-bold text-white">10</span>
                 </div>
-                <div class="skill-tag" data-skill="三视图绘制9.5" style="border-color: #3b82f6;">
-                  <span class="text-white text-xs">三视图绘制 9.5</span>
-                  <div class="skill-tag-tooltip">制定三视图规范，确保设计稿精准还原到3D模型</div>
+                <div class="skill-label">三视图绘制</div>
+              </div>
+              
+              <!-- 团队协作 9 -->
+              <div class="skill-ring-item" data-tooltip="跨部门协作，把控品质">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#f59e0b" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round" class="skill-progress"/>
+                </svg>
+                <div class="skill-center">
+                  <span class="text-lg font-bold text-white">10</span>
                 </div>
-                <div class="skill-tag" data-skill="团队协作9" style="border-color: #f59e0b;">
-                  <span class="text-white text-xs">团队协作 9</span>
-                  <div class="skill-tag-tooltip">跨部门协作能力，把控角色美术品质</div>
+                <div class="skill-label">团队协作</div>
+              </div>
+              
+              <!-- 交付效率 9 -->
+              <div class="skill-ring-item" data-tooltip="熟练使用PS、Blender及AI辅助工具">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#ef4444" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round" class="skill-progress"/>
+                </svg>
+                <div class="skill-center">
+                  <span class="text-lg font-bold text-white">10</span>
                 </div>
-                <div class="skill-tag" data-skill="交付效率9" style="border-color: #ef4444;">
-                  <span class="text-white text-xs">交付效率 9</span>
-                  <div class="skill-tag-tooltip">熟练使用PS、Blender及AI辅助工具</div>
+                <div class="skill-label">交付效率</div>
+              </div>
+              
+              <!-- 项目经验 9 -->
+              <div class="skill-ring-item" data-tooltip="参与多款重点项目，具备完整落地经验">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#8b5cf6" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round" class="skill-progress"/>
+                </svg>
+                <div class="skill-center">
+                  <span class="text-lg font-bold text-white">10</span>
                 </div>
-                <div class="skill-tag" data-skill="项目经验9" style="border-color: #8b5cf6;">
-                  <span class="text-white text-xs">项目经验 9</span>
-                  <div class="skill-tag-tooltip">参与多款重点项目，具备完整落地经验</div>
-                </div>
+                <div class="skill-label">项目经验</div>
               </div>
             </div>
           </div>
           
           <!-- 右侧内容 -->
           <div class="space-y-8">
-            <!-- 头像 -->
+            <!-- 头像 - 正方形 -->
             <div class="flex justify-center lg:justify-end">
-              <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl ring-4 ring-white/10">
+              <div class="w-48 h-48 rounded-2xl overflow-hidden border-4 border-white/20 shadow-2xl ring-4 ring-white/10">
                 <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96+2026-04-01+%E4%B8%8B%E5%8D%8810.13.54.png&nonce=45b8812a-e3a6-4edc-bdc3-8f7934ec66ef&project_id=7623421523495321663&sign=54491b874b288d81554faeac5bc7f2824eff6e978c29b636a57ef8accc91e559" 
                      alt="头像" 
                      class="w-full h-full object-cover">
