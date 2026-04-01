@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -18,7 +18,6 @@
             'serif-display': ['Playfair Display', 'Noto Serif SC', 'serif'],
             'serif-cn': ['Noto Serif SC', 'serif'],
             'sans': ['Noto Sans SC', 'PingFang SC', 'sans-serif'],
-            'handwrite': ['Caveat', 'cursive'],
           }
         }
       }
@@ -491,222 +490,167 @@
   </nav>
 
   <!-- Hero 区域 -->
-  <section class="min-h-screen relative overflow-hidden">
+  <section class="min-h-screen relative overflow-hidden flex items-center justify-center">
     <!-- 底图 -->
-    <div class="absolute inset-0 h-[70vh]">
+    <div class="absolute inset-0">
       <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F8A31A301-69A4-43C6-B514-BE9E938B3093_1_105_c.jpeg&nonce=a9cd1c78-5dec-4159-8adb-99b3d9f53ba9&project_id=7623421523495321663&sign=f56c1dee3b9629c98da3c2cc6350c573a23697d05f1b1211461ea7bd7826590b" 
            alt="背景" 
            class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
     </div>
     
-    <!-- 主标题 - 手写体 -->
-    <div class="absolute top-16 left-8 sm:left-16 z-20">
-      <h1 class="font-handwrite text-5xl sm:text-7xl md:text-8xl text-white drop-shadow-lg leading-none">
-        Rookive
-      </h1>
-      <h1 class="font-handwrite text-4xl sm:text-6xl md:text-7xl text-white/90 drop-shadow-lg -mt-2 ml-8 sm:ml-16">
-        zhou
-      </h1>
-    </div>
+    <!-- 清晰到模糊渐变遮罩 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60"></div>
     
-    <!-- 右下角社交图标胶囊 -->
-    <div class="absolute bottom-[35vh] right-4 sm:right-8 z-20">
-      <div class="flex items-center gap-3 px-4 py-2.5 bg-gray-900/80 backdrop-blur-md rounded-full border border-white/10">
-        <a href="https://www.xiaohongshu.com/user/profile/5be4c6a08a9f5a000159e8de" target="_blank" class="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-          </svg>
-          <span class="text-xs font-medium hidden sm:inline">Rookive菜菜</span>
-        </a>
-        <a href="mailto:617483149@qq.com" class="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-          <span class="text-xs font-medium hidden sm:inline">617483149@qq.com</span>
-        </a>
+    <!-- 内容 -->
+    <div class="relative z-10 w-full max-w-md mx-4 text-center px-4">
+      <!-- 头像 -->
+      <div class="mb-5">
+        <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-white/30 shadow-2xl ring-4 ring-white/10">
+          <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96+2026-04-01+%E4%B8%8B%E5%8D%8811.00.12.png&nonce=392b71bb-f30f-4101-a08e-d6e53ae252a8&project_id=7623421523495321663&sign=b391d229501cf958ad4aa6c60fa85894c940f5b28d63ed14547af1a75fe2b0be" 
+               alt="头像" 
+               class="w-full h-full object-cover">
+        </div>
       </div>
-    </div>
-    
-    <!-- 个人简介卡片 - 浅灰色圆角卡片 -->
-    <div class="relative z-10 mt-[55vh]">
-      <div class="bg-gray-100 rounded-t-[3rem] px-6 sm:px-12 lg:px-20 py-10 sm:py-14 min-h-[45vh]">
-        <div class="max-w-6xl mx-auto">
-          <!-- 卡片内容 - 左右布局 -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-            
-            <!-- 左侧：头像 + 手绘箭头 -->
-            <div class="flex flex-col items-center lg:items-start">
-              <div class="relative">
-                <!-- 手绘箭头和标注 -->
-                <div class="absolute -top-6 -right-8 sm:-right-12 z-10">
-                  <svg class="w-16 sm:w-20 h-auto text-amber-500" viewBox="0 0 80 60" fill="none">
-                    <path d="M70 5 Q50 10 30 30 Q15 45 5 55" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                    <path d="M5 55 L12 48 M5 55 L8 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                  </svg>
-                  <span class="absolute -top-4 right-0 font-handwrite text-lg sm:text-xl text-amber-600 rotate-12">THAT'S ME!</span>
-                </div>
-                <!-- 头像 -->
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl ring-4 ring-amber-100">
-                  <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96+2026-04-01+%E4%B8%8B%E5%8D%8810.13.54.png&nonce=45b8812a-e3a6-4edc-bdc3-8f7934ec66ef&project_id=7623421523495321663&sign=54491b874b288d81554faeac5bc7f2824eff6e978c29b636a57ef8accc91e559" 
-                       alt="头像" 
-                       class="w-full h-full object-cover">
-                </div>
-              </div>
-              
-              <!-- 标签 -->
-              <div class="flex flex-wrap gap-2 justify-center lg:justify-start mt-6">
-                <span class="px-4 py-1.5 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">原画组组长</span>
-                <span class="px-4 py-1.5 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">美术博主</span>
-                <span class="px-4 py-1.5 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">互联网大厂</span>
-              </div>
+      
+      <!-- 主标题 -->
+      <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-1 drop-shadow-lg">
+        周琪雯
+      </h1>
+      <p class="font-serif-cn text-base text-white/80 font-light tracking-widest mb-4 drop-shadow">
+        角色原画作品集
+      </p>
+      
+      <!-- 个人简介 -->
+      <p class="text-white/90 leading-relaxed text-sm mb-5 drop-shadow max-w-sm mx-auto">
+        10年腾讯游戏美术经验，擅长美少女角色设计与QQ人画风。参与《宝可梦大集结》《洛克王国·世界》等重点项目。
+      </p>
+      
+      <!-- 标签 -->
+      <div class="flex flex-wrap gap-2 justify-center mb-5">
+        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">原画组组长</span>
+        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">美术博主</span>
+        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">小众审美发烧友</span>
+        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">互联网大厂</span>
+      </div>
+      
+      <!-- 专业能力 -->
+      <div class="mb-5">
+        <p class="text-xs font-medium text-white/60 tracking-wider uppercase mb-3 drop-shadow">Professional Skills</p>
+        <div class="flex items-end justify-center gap-3">
+          <!-- 角色原画 95 -->
+          <div class="skill-ring-mini skill-ring-mini-1 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
+            <svg width="52" height="52" viewBox="0 0 100 100">
+              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
+              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
+                stroke-dasharray="264" stroke-dashoffset="13.2"></circle>
+            </svg>
+            <div class="skill-ring-value-mini">
+              <span class="skill-number">95</span>
+              <span class="skill-ring-label-mini">角色原画</span>
             </div>
-            
-            <!-- 右侧：Call me! + 简介 -->
-            <div class="text-center lg:text-left">
-              <h2 class="font-handwrite text-4xl sm:text-5xl md:text-6xl text-gray-800 mb-4">
-                Call me!
-              </h2>
-              <p class="text-gray-600 leading-relaxed text-base sm:text-lg mb-6 max-w-lg">
-                10年腾讯游戏美术经验，擅长美少女角色设计与QQ人画风。参与《宝可梦大集结》《洛克王国·世界》等重点项目，具备完整的角色设计与落地经验。
-              </p>
-              
-              <!-- 查看作品按钮 -->
-              <a href="#showcase" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-all duration-300 hover:scale-105 shadow-lg">
-                <span>查看作品</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                </svg>
-              </a>
+            <div class="skill-tooltip-mini">
+              <p class="text-white font-medium text-sm mb-1">角色原画</p>
+              <p class="text-gray-400 text-xs">擅长二次元风格角色设计</p>
+            </div>
+          </div>
+          
+          <!-- 三视图 95 -->
+          <div class="skill-ring-mini skill-ring-mini-2 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
+            <svg width="52" height="52" viewBox="0 0 100 100">
+              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
+              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
+                stroke-dasharray="264" stroke-dashoffset="13.2"></circle>
+            </svg>
+            <div class="skill-ring-value-mini">
+              <span class="skill-number">95</span>
+              <span class="skill-ring-label-mini">三视图</span>
+            </div>
+            <div class="skill-tooltip-mini">
+              <p class="text-white font-medium text-sm mb-1">三视图绘制</p>
+              <p class="text-gray-400 text-xs">制定三视图规范，精准还原</p>
+            </div>
+          </div>
+          
+          <!-- 团队协作 90 -->
+          <div class="skill-ring-mini skill-ring-mini-3 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
+            <svg width="52" height="52" viewBox="0 0 100 100">
+              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
+              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
+                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
+            </svg>
+            <div class="skill-ring-value-mini">
+              <span class="skill-number">90</span>
+              <span class="skill-ring-label-mini">团队协作</span>
+            </div>
+            <div class="skill-tooltip-mini">
+              <p class="text-white font-medium text-sm mb-1">团队协作</p>
+              <p class="text-gray-400 text-xs">跨部门协作，把控品质</p>
+            </div>
+          </div>
+          
+          <!-- 交付效率 90 -->
+          <div class="skill-ring-mini skill-ring-mini-4 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
+            <svg width="52" height="52" viewBox="0 0 100 100">
+              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
+              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
+                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
+            </svg>
+            <div class="skill-ring-value-mini">
+              <span class="skill-number">90</span>
+              <span class="skill-ring-label-mini">交付效率</span>
+            </div>
+            <div class="skill-tooltip-mini">
+              <p class="text-white font-medium text-sm mb-1">交付效率</p>
+              <p class="text-gray-400 text-xs">熟练使用PS、Blender等工具</p>
+            </div>
+          </div>
+          
+          <!-- 项目经验 90 -->
+          <div class="skill-ring-mini skill-ring-mini-5 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
+            <svg width="52" height="52" viewBox="0 0 100 100">
+              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
+              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
+                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
+            </svg>
+            <div class="skill-ring-value-mini">
+              <span class="skill-number">90</span>
+              <span class="skill-ring-label-mini">项目经验</span>
+            </div>
+            <div class="skill-tooltip-mini">
+              <p class="text-white font-medium text-sm mb-1">项目经验</p>
+              <p class="text-gray-400 text-xs">参与多款重点项目</p>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- 技能与背景区 -->
-      <div class="bg-gray-100 px-6 sm:px-12 lg:px-20 py-12">
-        <div class="max-w-6xl mx-auto">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-            
-            <!-- 左列：Software Skills -->
-            <div>
-              <h3 class="font-handwrite text-2xl sm:text-3xl text-gray-800 mb-6">Software Skills</h3>
-              <div class="grid grid-cols-4 gap-4">
-                <!-- Photoshop -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-lg">Ps</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Photoshop</span>
-                </div>
-                <!-- Illustrator -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-lg">Ai</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Illustrator</span>
-                </div>
-                <!-- Blender -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-orange-600 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-sm">B3D</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Blender</span>
-                </div>
-                <!-- Procreate -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gray-800 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-sm">Pc</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Procreate</span>
-                </div>
-                <!-- SAI -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-cyan-500 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-lg">SAI</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Paint Tool</span>
-                </div>
-                <!-- Clip Studio -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-green-600 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-xs">CSP</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Clip Studio</span>
-                </div>
-                <!-- Premiere -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-purple-700 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-lg">Pr</span>
-                  </div>
-                  <span class="text-xs text-gray-600">Premiere</span>
-                </div>
-                <!-- After Effects -->
-                <div class="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                  <div class="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-700 rounded-xl flex items-center justify-center mb-2">
-                    <span class="text-white font-bold text-lg">Ae</span>
-                  </div>
-                  <span class="text-xs text-gray-600">After FX</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 右列：Education & Design Skills -->
-            <div>
-              <h3 class="font-handwrite text-2xl sm:text-3xl text-gray-800 mb-6">Education & Design Skills</h3>
-              
-              <!-- Education -->
-              <div class="mb-6">
-                <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"/>
-                  </svg>
-                  教育经历
-                </h4>
-                <ul class="space-y-2 text-gray-600 text-sm">
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>四川美术学院 - 动画专业本科</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>腾讯游戏美术中心 - 高级原画师</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <!-- Design Skills -->
-              <div>
-                <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
-                  </svg>
-                  设计技能
-                </h4>
-                <ul class="space-y-2 text-gray-600 text-sm">
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>二次元角色原画 / QQ人画风</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>角色三视图规范制定</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>美少女角色设计 / 服装设计</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                    <span>IP形象设计 / 表情包设计</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- 按钮组 -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#showcase" class="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <span>查看作品</span>
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        <a href="#contact" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/15 backdrop-blur-sm text-white rounded-full font-medium hover:bg-white/25 transition-all duration-300 border border-white/30">
+          <span>联系我</span>
+        </a>
       </div>
+    </div>
+    
+    <!-- 滚动指示器 -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
+      <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+    
+    <!-- 底部渐变过渡 -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-24">
+      <svg class="absolute bottom-0 left-0 w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path fill="#1f2937" d="M0,30 C120,60 240,10 360,50 C480,90 600,20 720,60 C840,100 960,40 1080,80 C1200,20 1320,70 1440,50 L1440,100 L0,100 Z"></path>
+      </svg>
     </div>
   </section>
 
