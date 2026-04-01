@@ -72,20 +72,6 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
     }
     
-    /* 视差容器 */
-    .parallax-container {
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .parallax-bg {
-      position: absolute;
-      inset: -20%;
-      background-size: cover;
-      background-position: center;
-      will-change: transform;
-    }
-    
     /* 图片悬停缩放 */
     .img-container {
       overflow: hidden;
@@ -171,6 +157,105 @@
     .contact-card:hover::before {
       opacity: 1;
     }
+    
+    /* 作品轮播样式 */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-y pinch-zoom;
+    }
+    
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .carousel-card {
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    
+    .carousel-card:hover {
+      transform: scale(1.02);
+    }
+    
+    .carousel-card:hover .carousel-card-overlay {
+      opacity: 1;
+    }
+    
+    .carousel-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* 轮播按钮 */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: #dc2626;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 20;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    }
+    
+    .carousel-btn:hover {
+      background: #b91c1c;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+    }
+    
+    .carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+    
+    .carousel-btn-prev {
+      left: 16px;
+    }
+    
+    .carousel-btn-next {
+      right: 16px;
+    }
+    
+    /* 轮播指示器 */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: #dc2626;
+      width: 24px;
+      border-radius: 4px;
+    }
+    
+    /* 作品详情卡片ID标记 */
+    .work-detail {
+      scroll-margin-top: 100px;
+    }
   </style>
 </head>
 <body class="bg-stone-50 text-gray-800 font-sans antialiased overflow-x-hidden">
@@ -181,12 +266,12 @@
       <div class="flex justify-between items-center h-16 sm:h-20">
         <a href="#" class="font-serif-display text-2xl sm:text-3xl font-semibold tracking-wide">Rookive</a>
         <div class="hidden md:flex items-center gap-10">
-          <a href="#about" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors relative group">
-            关于
+          <a href="#showcase" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors relative group">
+            作品
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
           </a>
-          <a href="#works" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors relative group">
-            作品
+          <a href="#about" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors relative group">
+            关于
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
           </a>
           <a href="#experience" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors relative group">
@@ -239,7 +324,7 @@
         
         <!-- 按钮组 -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-          <a href="#works" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <a href="#showcase" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-xl">
             <span>查看作品</span>
             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -266,7 +351,120 @@
   <!-- 撕纸分隔 -->
   <div class="relative h-24 bg-stone-50">
     <svg class="torn-edge-bottom" viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path fill="#ffffff" d="M0,0 C120,30 240,50 360,35 C480,20 600,45 720,30 C840,15 960,40 1080,25 C1200,10 1320,35 1440,20 L1440,60 L0,60 Z"></path>
+      <path fill="#1f2937" d="M0,25 C120,50 240,15 360,40 C480,65 600,30 720,55 C840,80 960,35 1080,60 C1200,85 1320,40 1440,55 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <!-- 作品轮播集合页 -->
+  <section id="showcase" class="py-20 sm:py-28 bg-gray-900 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-sm font-medium text-gray-500 tracking-[0.3em] uppercase mb-4">Portfolio</p>
+        <h2 class="font-serif-display text-4xl sm:text-5xl font-bold mb-4 text-white">精选作品</h2>
+        <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto"></div>
+      </div>
+    </div>
+    
+    <!-- 轮播容器 -->
+    <div class="carousel-container max-w-6xl mx-auto px-16 sm:px-20">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- 作品1 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-1')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">达克莱伊</h3>
+              <p class="text-sm text-gray-300 mt-1">赛博潮流服饰设计</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品2 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-2')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/ri0D1wA7Nq" alt="角色三视图" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">三视图系统</h3>
+              <p class="text-sm text-gray-300 mt-1">制定三视图规范</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品3 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-3')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/cNZB1wA7Nq" alt="角色原画" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">角色原画</h3>
+              <p class="text-sm text-gray-300 mt-1">角色设计与实机效果</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品4 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-4')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/0N3I1wA7Nq" alt="宝可梦原画" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">宝可梦设计</h3>
+              <p class="text-sm text-gray-300 mt-1">定制服装设计</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品5 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-5')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/THmj1wA7Nq" alt="九尾极光" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">九尾 · 极光</h3>
+              <p class="text-sm text-gray-300 mt-1">三视图及实机效果</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品6 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-6')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/rVN61wA7Nq" alt="ROOKIVE" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">个人作品</span>
+              <h3 class="text-xl font-semibold text-white">ROOKIVE</h3>
+              <p class="text-sm text-gray-300 mt-1">原创角色设计</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 左右按钮 -->
+      <button class="carousel-btn carousel-btn-prev" onclick="slideCarousel(-1)" aria-label="上一个">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button class="carousel-btn carousel-btn-next" onclick="slideCarousel(1)" aria-label="下一个">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      
+      <!-- 指示器 -->
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+    
+    <!-- 提示 -->
+    <p class="text-center text-gray-500 text-sm mt-8">点击作品查看详情 ↓</p>
+  </section>
+
+  <!-- 撕纸分隔 -->
+  <div class="relative h-24 bg-gray-900">
+    <svg class="torn-edge-bottom" viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path fill="#ffffff" d="M0,30 C180,5 360,55 540,25 C720,55 900,10 1080,40 C1260,70 1350,20 1440,35 L1440,60 L0,60 Z"></path>
     </svg>
   </div>
 
@@ -352,23 +550,23 @@
     </svg>
   </div>
 
-  <!-- 作品展示 -->
+  <!-- 作品详情展示 -->
   <section id="works" class="py-24 sm:py-32 bg-stone-100 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 sm:mb-20">
-        <p class="text-sm font-medium text-gray-400 tracking-[0.3em] uppercase mb-4">Portfolio</p>
-        <h2 class="font-serif-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6">精选作品</h2>
+        <p class="text-sm font-medium text-gray-400 tracking-[0.3em] uppercase mb-4">Details</p>
+        <h2 class="font-serif-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6">作品详情</h2>
         <div class="decorative-line mx-auto mb-6"></div>
-        <p class="text-lg text-gray-500 max-w-2xl mx-auto font-light">展示部分项目作品与个人创作</p>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto font-light">点击上方作品卡片可快速定位</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- 作品卡片 -->
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <!-- 作品详情卡片 -->
+        <div id="work-1" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">赛博潮流服饰 + 黑客元素设计</span>
             </div>
           </div>
           <div class="p-6">
@@ -378,11 +576,11 @@
           </div>
         </div>
         
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <div id="work-2" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/ri0D1wA7Nq" alt="角色三视图" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">制定三视图规范，确保生产落地</span>
             </div>
           </div>
           <div class="p-6">
@@ -392,11 +590,11 @@
           </div>
         </div>
         
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <div id="work-3" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/cNZB1wA7Nq" alt="角色原画" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">角色三视图及实机效果</span>
             </div>
           </div>
           <div class="p-6">
@@ -406,11 +604,11 @@
           </div>
         </div>
         
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <div id="work-4" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/0N3I1wA7Nq" alt="宝可梦原画" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">针对不同体型的宝可梦量身定制服装</span>
             </div>
           </div>
           <div class="p-6">
@@ -420,11 +618,11 @@
           </div>
         </div>
         
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <div id="work-5" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/THmj1wA7Nq" alt="九尾极光" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">宝可梦三视图及实机效果</span>
             </div>
           </div>
           <div class="p-6">
@@ -434,11 +632,11 @@
           </div>
         </div>
         
-        <div class="work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
+        <div id="work-6" class="work-detail work-card group bg-white rounded-3xl overflow-hidden shadow-sm hover-lift">
           <div class="aspect-[4/3] relative img-container">
             <img src="https://aka.doubaocdn.com/s/rVN61wA7Nq" alt="ROOKIVE" class="w-full h-full object-cover">
             <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-              <span class="text-white text-sm font-medium">查看详情</span>
+              <span class="text-white text-sm font-medium">个人原创角色设计</span>
             </div>
           </div>
           <div class="p-6">
@@ -522,7 +720,7 @@
   <!-- 撕纸分隔 -->
   <div class="relative h-24 bg-white">
     <svg class="torn-edge-bottom" viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path fill="#1f2937" d="M0,25 C120,50 240,20 360,45 C480,70 600,30 720,50 C840,70 960,25 1080,50 C1200,75 1320,30 1440,45 L1440,60 L0,60 Z"></path>
+      <path fill="#1f2937" d="M0,25 C120,50 240,20 360,45 C480,70 600,30 720,55 C840,80 960,35 1080,60 C1200,85 1320,40 1440,55 L1440,60 L0,60 Z"></path>
     </svg>
   </div>
 
@@ -579,8 +777,8 @@
           <p class="text-sm text-gray-500 mt-1">Character Concept Artist · Game Art</p>
         </div>
         <div class="flex items-center gap-8 text-sm text-gray-500">
+          <a href="#showcase" class="hover:text-white transition-colors">作品</a>
           <a href="#about" class="hover:text-white transition-colors">关于</a>
-          <a href="#works" class="hover:text-white transition-colors">作品</a>
           <a href="#contact" class="hover:text-white transition-colors">联系</a>
         </div>
         <p class="text-sm text-gray-600">© 2025 Zhou Qiwen. All rights reserved.</p>
@@ -588,7 +786,7 @@
     </div>
   </footer>
 
-  <!-- 视差滚动脚本 -->
+  <!-- JavaScript -->
   <script>
     // 导航栏滚动效果
     const navbar = document.getElementById('navbar');
@@ -600,15 +798,166 @@
       }
     });
     
-    // 视差滚动效果
-    const parallaxElements = document.querySelectorAll('.parallax-bg');
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      parallaxElements.forEach(el => {
-        const speed = el.dataset.speed || 0.5;
-        el.style.transform = `translateY(${scrolled * speed}px)`;
+    // 轮播功能
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const cards = track.querySelectorAll('.carousel-card');
+    const totalCards = cards.length;
+    let currentIndex = 0;
+    let cardsPerView = 3;
+    let startX = 0;
+    let isDragging = false;
+    
+    // 响应式计算每页显示数量
+    function updateCardsPerView() {
+      if (window.innerWidth < 640) {
+        cardsPerView = 1;
+      } else if (window.innerWidth < 1024) {
+        cardsPerView = 2;
+      } else {
+        cardsPerView = 3;
+      }
+      updateCarousel();
+      createDots();
+    }
+    
+    // 计算总页数
+    function getTotalPages() {
+      return Math.ceil(totalCards / cardsPerView);
+    }
+    
+    // 创建指示器
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const totalPages = getTotalPages();
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `跳转到第 ${i + 1} 页`);
+        dot.onclick = () => goToPage(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+    
+    // 更新轮播位置
+    function updateCarousel() {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24; // px-3 = 12px * 2
+      const offset = currentIndex * (cardWidth + gap);
+      track.style.transform = `translateX(-${offset}px)`;
+      
+      // 更新指示器
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      const currentPage = Math.floor(currentIndex / cardsPerView);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentPage);
       });
+    }
+    
+    // 切换轮播
+    function slideCarousel(direction) {
+      const maxIndex = totalCards - cardsPerView;
+      currentIndex += direction;
+      
+      if (currentIndex < 0) {
+        currentIndex = maxIndex;
+      } else if (currentIndex > maxIndex) {
+        currentIndex = 0;
+      }
+      
+      updateCarousel();
+    }
+    
+    // 跳转到指定页
+    function goToPage(pageIndex) {
+      currentIndex = pageIndex * cardsPerView;
+      const maxIndex = totalCards - cardsPerView;
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+      updateCarousel();
+    }
+    
+    // 点击作品跳转到详情
+    function scrollToWork(workId) {
+      const element = document.getElementById(workId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 添加高亮效果
+        element.classList.add('ring-4', 'ring-red-500', 'ring-opacity-50');
+        setTimeout(() => {
+          element.classList.remove('ring-4', 'ring-red-500', 'ring-opacity-50');
+        }, 2000);
+      }
+    }
+    
+    // 触摸滑动支持
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, { passive: true });
+    
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          slideCarousel(1);
+        } else {
+          slideCarousel(-1);
+        }
+      }
+    }, { passive: true });
+    
+    // 鼠标拖拽支持
+    let mouseStartX = 0;
+    let isMouseDragging = false;
+    
+    track.addEventListener('mousedown', (e) => {
+      mouseStartX = e.clientX;
+      isMouseDragging = true;
+      track.style.cursor = 'grabbing';
     });
+    
+    track.addEventListener('mousemove', (e) => {
+      if (!isMouseDragging) return;
+      e.preventDefault();
+    });
+    
+    track.addEventListener('mouseup', (e) => {
+      if (!isMouseDragging) return;
+      isMouseDragging = false;
+      track.style.cursor = 'grab';
+      
+      const diff = mouseStartX - e.clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          slideCarousel(1);
+        } else {
+          slideCarousel(-1);
+        }
+      }
+    });
+    
+    track.addEventListener('mouseleave', () => {
+      if (isMouseDragging) {
+        isMouseDragging = false;
+        track.style.cursor = 'grab';
+      }
+    });
+    
+    // 初始化
+    track.style.cursor = 'grab';
+    updateCardsPerView();
+    window.addEventListener('resize', updateCardsPerView);
     
     // 平滑滚动增强
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
