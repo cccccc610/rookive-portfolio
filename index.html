@@ -465,6 +465,60 @@
     .skill-ring-mini-3 .skill-ring-progress-mini { stroke: #f59e0b; }
     .skill-ring-mini-4 .skill-ring-progress-mini { stroke: #ef4444; }
     .skill-ring-mini-5 .skill-ring-progress-mini { stroke: #8b5cf6; }
+    
+    /* 技能标签样式 */
+    .skill-tag {
+      position: relative;
+      padding: 6px 12px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      border-width: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+      background: rgba(0,0,0,0.6);
+      transform: translateY(-2px);
+    }
+    
+    .skill-tag-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 180px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+      white-space: normal;
+      text-align: center;
+    }
+    
+    .skill-tag-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(0,0,0,0.95);
+    }
+    
+    .skill-tag:hover .skill-tag-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1);
+    }
   </style>
 </head>
 <body class="bg-stone-50 text-gray-800 font-sans antialiased overflow-x-hidden">
@@ -490,7 +544,7 @@
   </nav>
 
   <!-- Hero 区域 -->
-  <section class="min-h-screen relative overflow-hidden flex items-center justify-center">
+  <section class="min-h-screen relative overflow-hidden">
     <!-- 底图 -->
     <div class="absolute inset-0">
       <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F8A31A301-69A4-43C6-B514-BE9E938B3093_1_105_c.jpeg&nonce=a9cd1c78-5dec-4159-8adb-99b3d9f53ba9&project_id=7623421523495321663&sign=f56c1dee3b9629c98da3c2cc6350c573a23697d05f1b1211461ea7bd7826590b" 
@@ -498,160 +552,152 @@
            class="w-full h-full object-cover">
     </div>
     
-    <!-- 清晰到模糊渐变遮罩 -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60"></div>
+    <!-- 暗色渐变遮罩 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80"></div>
     
-    <!-- 内容 -->
-    <div class="relative z-10 w-full max-w-md mx-4 text-center px-4">
-      <!-- 头像 -->
-      <div class="mb-5">
-        <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-white/30 shadow-2xl ring-4 ring-white/10">
-          <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96+2026-04-01+%E4%B8%8B%E5%8D%8811.00.12.png&nonce=392b71bb-f30f-4101-a08e-d6e53ae252a8&project_id=7623421523495321663&sign=b391d229501cf958ad4aa6c60fa85894c940f5b28d63ed14547af1a75fe2b0be" 
-               alt="头像" 
-               class="w-full h-full object-cover">
+    <!-- 内容区域 - 左右分栏 -->
+    <div class="relative z-10 min-h-screen flex items-center">
+      <div class="w-full max-w-6xl mx-auto px-6 lg:px-12 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          <!-- 左侧内容 -->
+          <div class="space-y-8">
+            <!-- 主标题 -->
+            <div>
+              <h1 class="font-serif-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-lg leading-none">
+                qiwen Zhou
+              </h1>
+              <p class="text-white/50 text-sm tracking-widest mt-3 font-light">The monster's left hand</p>
+            </div>
+            
+            <!-- 副标题 -->
+            <p class="text-white/90 text-base leading-relaxed max-w-lg">
+              10年腾讯游戏美术经验，擅长美少女角色设计与QQ人画风。参与《宝可梦大集结》《洛克王国·世界》等重点项目。
+            </p>
+            
+            <!-- 标签 -->
+            <div class="flex flex-wrap gap-2">
+              <span class="px-4 py-1.5 bg-transparent backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/30">美术组长</span>
+              <span class="px-4 py-1.5 bg-transparent backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/30">小众审美</span>
+              <span class="px-4 py-1.5 bg-transparent backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/30">美术博主</span>
+              <span class="px-4 py-1.5 bg-transparent backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/30">互联网大厂</span>
+            </div>
+            
+            <!-- 能力值区域 -->
+            <div class="flex items-center gap-6 pt-4">
+              <!-- 圆形评分徽章 -->
+              <div class="relative w-24 h-24 flex-shrink-0">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#fbbf24" stroke-width="6" 
+                    stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-3xl font-bold text-white">10</span>
+                </div>
+              </div>
+              
+              <!-- 技能标签 -->
+              <div class="flex flex-wrap gap-2">
+                <div class="skill-tag" data-skill="角色原画9.5" style="border-color: #10b981;">
+                  <span class="text-white text-xs">角色原画 9.5</span>
+                  <div class="skill-tag-tooltip">擅长二次元风格角色设计，多年游戏美术制作经验</div>
+                </div>
+                <div class="skill-tag" data-skill="三视图绘制9.5" style="border-color: #3b82f6;">
+                  <span class="text-white text-xs">三视图绘制 9.5</span>
+                  <div class="skill-tag-tooltip">制定三视图规范，确保设计稿精准还原到3D模型</div>
+                </div>
+                <div class="skill-tag" data-skill="团队协作9" style="border-color: #f59e0b;">
+                  <span class="text-white text-xs">团队协作 9</span>
+                  <div class="skill-tag-tooltip">跨部门协作能力，把控角色美术品质</div>
+                </div>
+                <div class="skill-tag" data-skill="交付效率9" style="border-color: #ef4444;">
+                  <span class="text-white text-xs">交付效率 9</span>
+                  <div class="skill-tag-tooltip">熟练使用PS、Blender及AI辅助工具</div>
+                </div>
+                <div class="skill-tag" data-skill="项目经验9" style="border-color: #8b5cf6;">
+                  <span class="text-white text-xs">项目经验 9</span>
+                  <div class="skill-tag-tooltip">参与多款重点项目，具备完整落地经验</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 右侧内容 -->
+          <div class="space-y-8">
+            <!-- 头像 -->
+            <div class="flex justify-center lg:justify-end">
+              <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl ring-4 ring-white/10">
+                <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96+2026-04-01+%E4%B8%8B%E5%8D%8810.13.54.png&nonce=45b8812a-e3a6-4edc-bdc3-8f7934ec66ef&project_id=7623421523495321663&sign=54491b874b288d81554faeac5bc7f2824eff6e978c29b636a57ef8accc91e559" 
+                     alt="头像" 
+                     class="w-full h-full object-cover">
+              </div>
+            </div>
+            
+            <!-- 技能网格 -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- 软件图标 -->
+              <div class="bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                <p class="text-xs text-white/50 mb-3 tracking-wider">SOFTWARE</p>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">Ps</div>
+                    <span class="text-xs text-white/70">Photoshop</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">Pr</div>
+                    <span class="text-xs text-white/70">Procreate</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">SAI</div>
+                    <span class="text-xs text-white/70">SAI</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 教育经历 -->
+              <div class="bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                <p class="text-xs text-white/50 mb-3 tracking-wider">EDUCATION</p>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                    <span class="text-sm text-white/90">四川美术学院</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span class="text-sm text-white/90">腾讯游戏美术中心</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 设计技能列表 -->
+            <div class="bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+              <p class="text-xs text-white/50 mb-3 tracking-wider">DESIGN SKILLS</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">角色设计</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">三视图绘制</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">QQ人风格</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">美少女角色</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">原画规范</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">团队协作</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      
-      <!-- 主标题 -->
-      <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-1 drop-shadow-lg">
-        周琪雯
-      </h1>
-      <p class="font-serif-cn text-base text-white/80 font-light tracking-widest mb-4 drop-shadow">
-        角色原画作品集
-      </p>
-      
-      <!-- 个人简介 -->
-      <p class="text-white/90 leading-relaxed text-sm mb-5 drop-shadow max-w-sm mx-auto">
-        10年腾讯游戏美术经验，擅长美少女角色设计与QQ人画风。参与《宝可梦大集结》《洛克王国·世界》等重点项目。
-      </p>
-      
-      <!-- 标签 -->
-      <div class="flex flex-wrap gap-2 justify-center mb-5">
-        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">原画组组长</span>
-        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">美术博主</span>
-        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">小众审美发烧友</span>
-        <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-white/90 border border-white/20">互联网大厂</span>
-      </div>
-      
-      <!-- 专业能力 -->
-      <div class="mb-5">
-        <p class="text-xs font-medium text-white/60 tracking-wider uppercase mb-3 drop-shadow">Professional Skills</p>
-        <div class="flex items-end justify-center gap-3">
-          <!-- 角色原画 95 -->
-          <div class="skill-ring-mini skill-ring-mini-1 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-            <svg width="52" height="52" viewBox="0 0 100 100">
-              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
-              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
-                stroke-dasharray="264" stroke-dashoffset="13.2"></circle>
-            </svg>
-            <div class="skill-ring-value-mini">
-              <span class="skill-number">95</span>
-              <span class="skill-ring-label-mini">角色原画</span>
-            </div>
-            <div class="skill-tooltip-mini">
-              <p class="text-white font-medium text-sm mb-1">角色原画</p>
-              <p class="text-gray-400 text-xs">擅长二次元风格角色设计</p>
-            </div>
-          </div>
-          
-          <!-- 三视图 95 -->
-          <div class="skill-ring-mini skill-ring-mini-2 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-            <svg width="52" height="52" viewBox="0 0 100 100">
-              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
-              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
-                stroke-dasharray="264" stroke-dashoffset="13.2"></circle>
-            </svg>
-            <div class="skill-ring-value-mini">
-              <span class="skill-number">95</span>
-              <span class="skill-ring-label-mini">三视图</span>
-            </div>
-            <div class="skill-tooltip-mini">
-              <p class="text-white font-medium text-sm mb-1">三视图绘制</p>
-              <p class="text-gray-400 text-xs">制定三视图规范，精准还原</p>
-            </div>
-          </div>
-          
-          <!-- 团队协作 90 -->
-          <div class="skill-ring-mini skill-ring-mini-3 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-            <svg width="52" height="52" viewBox="0 0 100 100">
-              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
-              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
-                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
-            </svg>
-            <div class="skill-ring-value-mini">
-              <span class="skill-number">90</span>
-              <span class="skill-ring-label-mini">团队协作</span>
-            </div>
-            <div class="skill-tooltip-mini">
-              <p class="text-white font-medium text-sm mb-1">团队协作</p>
-              <p class="text-gray-400 text-xs">跨部门协作，把控品质</p>
-            </div>
-          </div>
-          
-          <!-- 交付效率 90 -->
-          <div class="skill-ring-mini skill-ring-mini-4 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-            <svg width="52" height="52" viewBox="0 0 100 100">
-              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
-              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
-                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
-            </svg>
-            <div class="skill-ring-value-mini">
-              <span class="skill-number">90</span>
-              <span class="skill-ring-label-mini">交付效率</span>
-            </div>
-            <div class="skill-tooltip-mini">
-              <p class="text-white font-medium text-sm mb-1">交付效率</p>
-              <p class="text-gray-400 text-xs">熟练使用PS、Blender等工具</p>
-            </div>
-          </div>
-          
-          <!-- 项目经验 90 -->
-          <div class="skill-ring-mini skill-ring-mini-5 bg-black/50 backdrop-blur-sm rounded-full border border-white/10">
-            <svg width="52" height="52" viewBox="0 0 100 100">
-              <circle class="skill-ring-bg-mini" cx="50" cy="50" r="42"></circle>
-              <circle class="skill-ring-progress-mini" cx="50" cy="50" r="42" 
-                stroke-dasharray="264" stroke-dashoffset="26.4"></circle>
-            </svg>
-            <div class="skill-ring-value-mini">
-              <span class="skill-number">90</span>
-              <span class="skill-ring-label-mini">项目经验</span>
-            </div>
-            <div class="skill-tooltip-mini">
-              <p class="text-white font-medium text-sm mb-1">项目经验</p>
-              <p class="text-gray-400 text-xs">参与多款重点项目</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 按钮组 -->
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#showcase" class="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-          <span>查看作品</span>
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </a>
-        <a href="#contact" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/15 backdrop-blur-sm text-white rounded-full font-medium hover:bg-white/25 transition-all duration-300 border border-white/30">
-          <span>联系我</span>
-        </a>
       </div>
     </div>
     
-    <!-- 滚动指示器 -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
-      <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- 底部提示 -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+      <p class="text-xs text-white/40 tracking-[0.3em] mb-2">GALLERY</p>
+      <svg class="w-5 h-5 text-white/40 mx-auto scroll-indicator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
     </div>
     
     <!-- 底部渐变过渡 -->
     <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-24">
-      <svg class="absolute bottom-0 left-0 w-full h-24" viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path fill="#1f2937" d="M0,30 C120,60 240,10 360,50 C480,90 600,20 720,60 C840,100 960,40 1080,80 C1200,20 1320,70 1440,50 L1440,100 L0,100 Z"></path>
-      </svg>
-    </div>
   </section>
 
   <!-- 作品轮播集合页 -->
