@@ -1,0 +1,12 @@
+{
+  "name": "rookive-portfolio",
+  "version": "1.0.0",
+  "description": "周琪雯角色原画作品集",
+  "scripts": {
+    "dev": "serve -l 5000",
+    "start": "serve -l 5000"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
