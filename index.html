@@ -825,20 +825,8 @@
     <!-- 轮播容器 -->
     <div class="carousel-container max-w-6xl mx-auto px-16 sm:px-20 pb-20 sm:pb-28 relative z-20">
       <div class="carousel-track" id="carouselTrack">
-        <!-- 作品1 -->
+        <!-- 作品1: 角色三视图 -->
         <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-1')">
-          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
-            <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
-            <div class="carousel-card-overlay flex flex-col justify-end p-6">
-              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
-              <h3 class="text-xl font-semibold text-white">达克莱伊</h3>
-              <p class="text-sm text-gray-300 mt-1">赛博潮流服饰设计</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 作品2 -->
-        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-2')">
           <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
             <img src="https://aka.doubaocdn.com/s/ri0D1wA7Nq" alt="角色三视图" class="w-full h-full object-cover">
             <div class="carousel-card-overlay flex flex-col justify-end p-6">
@@ -849,8 +837,8 @@
           </div>
         </div>
         
-        <!-- 作品3 -->
-        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-3')">
+        <!-- 作品2: 角色原画设计 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-2')">
           <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
             <img src="https://aka.doubaocdn.com/s/cNZB1wA7Nq" alt="角色原画" class="w-full h-full object-cover">
             <div class="carousel-card-overlay flex flex-col justify-end p-6">
@@ -861,8 +849,8 @@
           </div>
         </div>
         
-        <!-- 作品4 -->
-        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-4')">
+        <!-- 作品3: 宝可梦原画设计 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-3')">
           <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
             <img src="https://aka.doubaocdn.com/s/0N3I1wA7Nq" alt="宝可梦原画" class="w-full h-full object-cover">
             <div class="carousel-card-overlay flex flex-col justify-end p-6">
@@ -873,7 +861,19 @@
           </div>
         </div>
         
-        <!-- 作品5 -->
+        <!-- 作品4: 达克莱伊 -->
+        <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-4')">
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
+            <div class="carousel-card-overlay flex flex-col justify-end p-6">
+              <span class="text-xs text-gray-300 tracking-wider mb-1">宝可梦大集结</span>
+              <h3 class="text-xl font-semibold text-white">达克莱伊</h3>
+              <p class="text-sm text-gray-300 mt-1">赛博潮流服饰设计</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 作品5: 九尾极光 -->
         <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-5')">
           <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
             <img src="https://aka.doubaocdn.com/s/THmj1wA7Nq" alt="九尾极光" class="w-full h-full object-cover">
@@ -885,7 +885,7 @@
           </div>
         </div>
         
-        <!-- 作品6 -->
+        <!-- 作品6: ROOKIVE -->
         <div class="carousel-card w-full sm:w-1/2 lg:w-1/3 px-3" onclick="scrollToWork('work-6')">
           <div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
             <img src="https://aka.doubaocdn.com/s/rVN61wA7Nq" alt="ROOKIVE" class="w-full h-full object-cover">
@@ -928,44 +928,8 @@
   <!-- 作品详情展示 - 全屏底图+右侧卡片 -->
   <section id="works" class="relative">
     
-    <!-- 作品1: 达克莱伊 -->
+    <!-- 作品1: 角色三视图 -->
     <div id="work-1" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden">
-      <!-- 底图全屏 -->
-      <div class="absolute inset-0">
-        <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊设计稿" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-black/30"></div>
-      </div>
-      
-      <!-- 右侧信息卡片 -->
-      <div class="relative z-10 ml-auto mr-8 sm:mr-16 lg:mr-24 w-80 sm:w-96">
-        <div class="glass-card-dark rounded-3xl p-6 border-2 border-emerald-900/30">
-          <!-- 缩略图 -->
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-5 shadow-lg">
-            <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
-          </div>
-          <!-- 项目详情 -->
-          <p class="text-gray-300 text-sm leading-relaxed mb-4">为达克莱伊设计赛博潮流风格的服饰，融入黑客元素，打造独特的未来科技感角色形象。</p>
-          <!-- 项目名称 -->
-          <h3 class="font-serif-cn text-xl font-semibold text-white mb-2">达克莱伊 · 赛博潮流服饰</h3>
-          <span class="inline-block px-3 py-1 bg-emerald-900/50 rounded-full text-xs text-gray-300">宝可梦大集结</span>
-        </div>
-      </div>
-      
-      <!-- 顶部撕纸效果 -->
-      <svg class="absolute top-0 left-0 w-full h-16 -translate-y-px" viewBox="0 0 1440 60" preserveAspectRatio="none">
-        <path fill="#ffffff" d="M0,60 C120,30 240,50 360,35 C480,20 600,55 720,30 C840,5 960,45 1080,25 C1200,5 1320,40 1440,30 L1440,0 L0,0 Z"></path>
-      </svg>
-    </div>
-    
-    <!-- 撕纸分隔 -->
-    <div class="relative h-20 bg-gray-900">
-      <svg class="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
-        <path fill="#111827" d="M0,0 C100,40 200,20 300,50 C400,80 500,30 600,60 C700,90 800,40 900,70 C1000,100 1100,50 1200,80 C1300,110 1400,60 1440,80 L1440,80 L0,80 Z"></path>
-      </svg>
-    </div>
-
-    <!-- 作品2: 角色三视图 -->
-    <div id="work-2" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
       <!-- 底图全屏 -->
       <div class="absolute inset-0">
         <img src="https://aka.doubaocdn.com/s/ri0D1wA7Nq" alt="角色三视图设计稿" class="w-full h-full object-cover">
@@ -986,17 +950,22 @@
           <span class="inline-block px-3 py-1 bg-sky-900/50 rounded-full text-xs text-gray-300">宝可梦大集结</span>
         </div>
       </div>
+      
+      <!-- 顶部撕纸效果 -->
+      <svg class="absolute top-0 left-0 w-full h-16 -translate-y-px" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path fill="#ffffff" d="M0,60 C120,30 240,50 360,35 C480,20 600,55 720,30 C840,5 960,45 1080,25 C1200,5 1320,40 1440,30 L1440,0 L0,0 Z"></path>
+      </svg>
     </div>
     
     <!-- 撕纸分隔 -->
     <div class="relative h-20 bg-gray-900">
       <svg class="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
-        <path fill="#0f172a" d="M0,20 C150,60 300,10 450,50 C600,90 750,30 900,70 C1050,110 1200,40 1350,80 L1440,80 L1440,80 L0,80 Z"></path>
+        <path fill="#0f172a" d="M0,0 C100,40 200,20 300,50 C400,80 500,30 600,60 C700,90 800,40 900,70 C1000,100 1100,50 1200,80 C1300,110 1400,60 1440,80 L1440,80 L0,80 Z"></path>
       </svg>
     </div>
 
-    <!-- 作品3: 角色原画设计 -->
-    <div id="work-3" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+    <!-- 作品2: 角色原画设计 -->
+    <div id="work-2" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
       <!-- 底图全屏 -->
       <div class="absolute inset-0">
         <img src="https://aka.doubaocdn.com/s/cNZB1wA7Nq" alt="角色原画设计稿" class="w-full h-full object-cover">
@@ -1022,12 +991,12 @@
     <!-- 撕纸分隔 -->
     <div class="relative h-20 bg-slate-900">
       <svg class="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
-        <path fill="#1e1b4b" d="M0,50 C120,10 240,70 360,30 C480,70 600,20 720,60 C840,100 960,40 1080,80 C1200,20 1320,70 1440,50 L1440,80 L0,80 Z"></path>
+        <path fill="#1e1b4b" d="M0,20 C150,60 300,10 450,50 C600,90 750,30 900,70 C1050,110 1200,40 1350,80 L1440,80 L1440,80 L0,80 Z"></path>
       </svg>
     </div>
 
-    <!-- 作品4: 宝可梦原画设计 -->
-    <div id="work-4" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-indigo-950">
+    <!-- 作品3: 宝可梦原画设计 -->
+    <div id="work-3" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
       <!-- 底图全屏 -->
       <div class="absolute inset-0">
         <img src="https://aka.doubaocdn.com/s/0N3I1wA7Nq" alt="宝可梦原画设计稿" class="w-full h-full object-cover">
@@ -1057,6 +1026,37 @@
       </svg>
     </div>
 
+    <!-- 作品4: 达克莱伊 -->
+    <div id="work-4" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-indigo-950">
+      <!-- 底图全屏 -->
+      <div class="absolute inset-0">
+        <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊设计稿" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-black/30"></div>
+      </div>
+      
+      <!-- 右侧信息卡片 -->
+      <div class="relative z-10 ml-auto mr-8 sm:mr-16 lg:mr-24 w-80 sm:w-96">
+        <div class="glass-card-dark rounded-3xl p-6 border-2 border-emerald-900/30">
+          <!-- 缩略图 -->
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-5 shadow-lg">
+            <img src="https://aka.doubaocdn.com/s/d5s41wA7Nq" alt="达克莱伊" class="w-full h-full object-cover">
+          </div>
+          <!-- 项目详情 -->
+          <p class="text-gray-300 text-sm leading-relaxed mb-4">为达克莱伊设计赛博潮流风格的服饰，融入黑客元素，打造独特的未来科技感角色形象。</p>
+          <!-- 项目名称 -->
+          <h3 class="font-serif-cn text-xl font-semibold text-white mb-2">达克莱伊 · 赛博潮流服饰</h3>
+          <span class="inline-block px-3 py-1 bg-emerald-900/50 rounded-full text-xs text-gray-300">宝可梦大集结</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 撕纸分隔 -->
+    <div class="relative h-20 bg-zinc-900">
+      <svg class="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path fill="#27272a" d="M0,60 C200,20 400,70 600,30 C800,80 1000,25 1200,65 C1350,35 1400,55 1440,50 L1440,80 L0,80 Z"></path>
+      </svg>
+    </div>
+
     <!-- 作品5: 九尾极光 -->
     <div id="work-5" class="work-detail relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-900">
       <!-- 底图全屏 -->
@@ -1082,9 +1082,9 @@
     </div>
     
     <!-- 撕纸分隔 -->
-    <div class="relative h-20 bg-zinc-900">
+    <div class="relative h-20 bg-zinc-800">
       <svg class="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 1440 80" preserveAspectRatio="none">
-        <path fill="#27272a" d="M0,60 C200,20 400,70 600,30 C800,80 1000,25 1200,65 C1350,35 1400,55 1440,50 L1440,80 L0,80 Z"></path>
+        <path fill="#27272a" d="M0,30 C180,70 360,20 540,60 C720,100 900,30 1080,70 C1260,20 1350,60 1440,40 L1440,80 L0,80 Z"></path>
       </svg>
     </div>
 
